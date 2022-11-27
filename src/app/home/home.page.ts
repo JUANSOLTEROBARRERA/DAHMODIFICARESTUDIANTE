@@ -16,8 +16,11 @@ export class HomePage {
   public students: Student[];
 
   constructor(private studentService: StudentService, private alertController: AlertController, private router: Router) {
-    this.students = this.studentService.getStudents();
 
+    this.studentService.getStudents().subscribe(res => {
+      this.students = res;
+      console.log(this.students);
+    });
   }
 
   public async removeStudent(pos: number) {
