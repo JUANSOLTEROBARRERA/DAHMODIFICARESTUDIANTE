@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { BACKDROP } from '@ionic/core/dist/types/utils/overlays';
 import { Student } from '../models/student';
 import { StudentService } from '../services/student.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-student',
@@ -14,18 +16,10 @@ export class NewStudentPage implements OnInit {
   public myForm: FormGroup;
   public validationMessages: object;
 
-  constructor(private studentService: StudentService, private fb: FormBuilder) { }
+  constructor(private router:Router, private studentService: StudentService, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.myForm = this.fb.group({
-      /*controlnumber:["", Validators.compose([Validators.minLength(8), Validators.required, Validators.pattern('^[0-9]+$')])],
-      name:["", Validators.required],
-      curp:["", Validators.compose([Validators.required, Validators.pattern('^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$')])],
-      age:[0, Validators.compose([Validators.required, Validators.min(17)])],
-      nip:[0, Validators.compose([Validators.required, Validators.min(10)])],
-      email:["", Validators.compose([Validators.required, Validators.email])],
-      career:["", Validators.required],
-      photo:["", Validators.compose([Validators.required])]*/
       controlnumber:["02400391", Validators.compose([Validators.minLength(8), Validators.required, Validators.pattern('^[0-9]+$')])],
       name:["ISRAEL ARJONA", Validators.required],
       curp:["AOVI840917HNTRZS09", Validators.compose([Validators.required, Validators.pattern('^[A-Z]{1}[AEIOU]{1}[A-Z]{2}[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[0-1])[HM]{1}(AS|BC|BS|CC|CS|CH|CL|CM|DF|DG|GT|GR|HG|JC|MC|MN|MS|NT|NL|OC|PL|QT|QR|SP|SL|SR|TC|TS|TL|VZ|YN|ZS|NE)[B-DF-HJ-NP-TV-Z]{3}[0-9A-Z]{1}[0-9]{1}$')])],
@@ -82,7 +76,13 @@ export class NewStudentPage implements OnInit {
       photo: this.myForm.controls.photo.value,
     }
 
-    console.log(this.studentService.newStudent(this.student));
+    this.studentService.newStudent(this.student);
+
+    //Toast
+    this.router.navigate(['..']);
+    //Router
+
+    
     
   }
 
